@@ -145,7 +145,7 @@ bool Viterbi::forwardbackward(Lattice *lattice) {
   }
 
   begin_node_list[len]->beta = 0.0;
-  for (int pos = static_cast<long>(len); pos >= 0; --pos) {
+  for (long pos = static_cast<long>(len); pos >= 0; --pos) {
     for (Node *node = end_node_list[pos]; node; node = node->enext) {
       calc_beta(node, theta);
     }
@@ -318,11 +318,11 @@ template <bool IsAllPath> bool connect(size_t pos, Node *rnode,
                                        const Connector *connector,
                                        Allocator<Node, Path> *allocator) {
   for (;rnode; rnode = rnode->bnext) {
-    register long best_cost = 2147483647;
+    long best_cost = 2147483647;
     Node* best_node = 0;
     for (Node *lnode = end_node_list[pos]; lnode; lnode = lnode->enext) {
-      register int lcost = connector->cost(lnode, rnode);  // local cost
-      register long cost = lnode->cost + lcost;
+      int lcost = connector->cost(lnode, rnode);  // local cost
+      long cost = lnode->cost + lcost;
 
       if (cost < best_cost) {
         best_node  = lnode;
